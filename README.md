@@ -1,23 +1,23 @@
-WAFER FAULT DETECTION
+**WAFER FAULT DETECTION**
 
 The inputs of various sensors for different wafers have been provided. In electronics, a wafer (also called a slice or substrate) is a thin slice of semiconductor used for the fabrication of integrated circuits. The goal is to build a machine learning model which predicts whether a wafer needs to be replaced or not(i.e., whether it is working or not) based on the inputs from various sensors. 
 
 In order to to run this program open this project in pycharm/visualcode IDE:
 
 1> Setup the new conda environment with python==3.6.9
-        conda create -n envname python==3.6.9
+       ** conda create -n envname python==3.6.9**
         
 2> Activate the new environment
 3> Install from requirements.txt 
-        pip install -r requirements.txt
+        **pip install -r requirements.txt**
 4> Run the main.py
 
-Problem Statement
+**Problem Statement**
 To build a classification methodology to predict the quality of wafer sensors based on the given training data. 
 Architecture
  ![image](https://user-images.githubusercontent.com/23423463/154792393-37ea2327-ab5e-4fb4-b0d2-0eb38c793ce1.png)
 
-Data Description
+**Data Description**
 The client will send data in multiple sets of files in batches at a given location. Data will contain Wafer names and 590 columns of different sensor values for each wafer. The last column will have the "Good/Bad" value for each wafer.
 "Good/Bad" column will have two unique values +1 and -1.  
 "+1" represents Bad wafer.
@@ -25,7 +25,7 @@ The client will send data in multiple sets of files in batches at a given locati
 Apart from training files, we also require a "schema" file from the client, which contains all the relevant information about the training files such as:
 Name of the files, Length of Date value in FileName, Length of Time value in FileName, Number of Columns, Name of the Columns, and their datatype.
  
-Data Validation 
+**Data Validation **
 In this step, we perform different sets of validation on the given set of training files.  
 1.	 Name Validation- We validate the name of the files based on the given name in the schema file. We have created a regex pattern as per the name given in the schema file to use for validation. After validating the pattern in the name, we check for the length of date in the file name as well as the length of time in the file name. If all the values are as per requirement, we move such files to "Good_Data_Folder" else we move such files to "Bad_Data_Folder."
 
@@ -41,13 +41,13 @@ In this step, we perform different sets of validation on the given set of traini
 
 
 
-Data Insertion in Database
+**Data Insertion in Database**
  
 1) Database Creation and connection - Create a database with the given name passed. If the database is already created, open the connection to the database. 
 2) Table creation in the database - Table with name - "Good_Data", is created in the database for inserting the files in the "Good_Data_Folder" based on given column names and datatype in the schema file. If the table is already present, then the new table is not created and new files are inserted in the already present table as we want training to be done on new as well as old training files.     
 3) Insertion of files in the table - All the files in the "Good_Data_Folder" are inserted in the above-created table. If any file has invalid data type in any of the columns, the file is not loaded in the table and is moved to "Bad_Data_Folder".
  
-Model Training 
+**Model Training **
 1) Data Export from Db - The data in a stored database is exported as a CSV file to be used for model training.
 2) Data Preprocessing   
    a) Check for null values in the columns. If present, impute the null values using the KNN imputer.
@@ -73,7 +73,7 @@ Data Insertion in Database
 3) Insertion of files in the table - All the files in the "Good_Data_Folder" are inserted in the above-created table. If any file has invalid data type in any of the columns, the file is not loaded in the table and is moved to "Bad_Data_Folder".
 
 
-Prediction 
+**Prediction **
  
 1) Data Export from Db - The data in the stored database is exported as a CSV file to be used for prediction.
 2) Data Preprocessing    
